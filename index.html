@@ -1,1130 +1,583 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>RR AI Tools Hub — Raushan's AI Portfolio</title>
-  <meta name="description" content="17 production AI tools built for enterprise training, corporate automation, and developer productivity. By Raushan Raj." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <style>
-    :root {
-      --teal:      #00c2e0;
-      --teal-dark: #0082A0;
-      --teal-dim:  rgba(0,194,224,0.12);
-      --teal-glow: rgba(0,194,224,0.25);
-      --bg:        #07090f;
-      --bg2:       #0e1117;
-      --bg3:       #141820;
-      --border:    rgba(255,255,255,0.07);
-      --border-hi: rgba(0,194,224,0.3);
-      --text:      #e8eaf0;
-      --muted:     #6b7280;
-      --font-head: 'Space Grotesk', sans-serif;
-      --font-body: 'Inter', sans-serif;
-    }
-
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: var(--font-body);
-      font-size: 15px;
-      line-height: 1.6;
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
-
-    /* ── GRID BACKGROUND ── */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image:
-        linear-gradient(rgba(0,194,224,0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0,194,224,0.03) 1px, transparent 1px);
-      background-size: 48px 48px;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    /* ── NAV ── */
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 2rem;
-      height: 60px;
-      background: rgba(7,9,15,0.85);
-      backdrop-filter: blur(16px);
-      border-bottom: 1px solid var(--border);
-    }
-
-    .nav-brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-family: var(--font-head);
-      font-weight: 700;
-      font-size: 16px;
-      color: var(--teal);
-      text-decoration: none;
-    }
-
-    .nav-logo {
-      width: 32px; height: 32px;
-      background: linear-gradient(135deg, var(--teal-dark), var(--teal));
-      border-radius: 8px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 16px; font-weight: 800; color: #07090f;
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 1.5rem;
-      list-style: none;
-    }
-
-    .nav-links a {
-      color: var(--muted);
-      text-decoration: none;
-      font-size: 13px;
-      font-weight: 500;
-      transition: color 0.2s;
-    }
-
-    .nav-links a:hover { color: var(--teal); }
-
-    .nav-cta {
-      background: var(--teal-dim);
-      border: 1px solid var(--border-hi);
-      color: var(--teal) !important;
-      padding: 6px 14px;
-      border-radius: 6px;
-      font-size: 13px !important;
-      font-weight: 500;
-      cursor: pointer;
-      transition: background 0.2s, color 0.2s;
-    }
-    .nav-cta:hover { background: var(--teal) !important; color: #07090f !important; }
-
-    /* ── HERO ── */
-    .hero {
-      position: relative;
-      z-index: 1;
-      padding: 140px 2rem 80px;
-      text-align: center;
-      max-width: 860px;
-      margin: 0 auto;
-    }
-
-    .hero-eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: var(--teal-dim);
-      border: 1px solid var(--border-hi);
-      border-radius: 20px;
-      padding: 5px 14px;
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--teal);
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      margin-bottom: 1.5rem;
-    }
-
-    .hero-eyebrow::before {
-      content: '';
-      width: 6px; height: 6px;
-      border-radius: 50%;
-      background: var(--teal);
-      animation: pulse 2s ease-in-out infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.4; transform: scale(0.7); }
-    }
-
-    .hero h1 {
-      font-family: var(--font-head);
-      font-size: clamp(2.4rem, 5vw, 3.8rem);
-      font-weight: 700;
-      line-height: 1.1;
-      letter-spacing: -0.02em;
-      margin-bottom: 1.25rem;
-    }
-
-    .hero h1 .accent {
-      background: linear-gradient(90deg, var(--teal-dark), var(--teal));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .hero-sub {
-      font-size: 1.05rem;
-      color: var(--muted);
-      max-width: 560px;
-      margin: 0 auto 2.5rem;
-      line-height: 1.7;
-    }
-
-    .hero-stats {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 2.5rem;
-      margin-bottom: 2.5rem;
-      flex-wrap: wrap;
-    }
-
-    .hero-stat {
-      text-align: center;
-    }
-
-    .hero-stat-num {
-      font-family: var(--font-head);
-      font-size: 2rem;
-      font-weight: 700;
-      color: var(--teal);
-      line-height: 1;
-    }
-
-    .hero-stat-label {
-      font-size: 12px;
-      color: var(--muted);
-      margin-top: 4px;
-    }
-
-    .hero-divider {
-      width: 1px;
-      height: 40px;
-      background: var(--border);
-    }
-
-    /* ── FILTER BAR ── */
-    .filter-wrap {
-      position: relative;
-      z-index: 1;
-      padding: 0 2rem 1.5rem;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .filter-bar {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      flex-wrap: wrap;
-    }
-
-    .filter-label {
-      font-size: 12px;
-      color: var(--muted);
-      font-weight: 500;
-      margin-right: 4px;
-    }
-
-    .filter-btn {
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      color: var(--muted);
-      padding: 6px 14px;
-      border-radius: 20px;
-      font-size: 12px;
-      font-weight: 500;
-      cursor: pointer;
-      transition: all 0.15s;
-      font-family: var(--font-body);
-    }
-
-    .filter-btn:hover {
-      border-color: var(--border-hi);
-      color: var(--teal);
-    }
-
-    .filter-btn.active {
-      background: var(--teal-dim);
-      border-color: var(--border-hi);
-      color: var(--teal);
-    }
-
-    .search-box {
-      margin-left: auto;
-      position: relative;
-    }
-
-    .search-box input {
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      color: var(--text);
-      padding: 7px 14px 7px 36px;
-      border-radius: 20px;
-      font-size: 13px;
-      font-family: var(--font-body);
-      width: 220px;
-      transition: border-color 0.2s;
-      outline: none;
-    }
-
-    .search-box input:focus { border-color: var(--border-hi); }
-    .search-box input::placeholder { color: var(--muted); }
-
-    .search-icon {
-      position: absolute;
-      left: 12px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: var(--muted);
-      font-size: 14px;
-      pointer-events: none;
-    }
-
-    /* ── GRID ── */
-    .grid-wrap {
-      position: relative;
-      z-index: 1;
-      padding: 0 2rem 5rem;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .section-label {
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 1rem;
-      margin-top: 2.5rem;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .section-label::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: var(--border);
-    }
-
-    .tools-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 1px;
-      background: var(--border);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      overflow: hidden;
-      margin-bottom: 1px;
-    }
-
-    /* ── TOOL CARD ── */
-    .tool-card {
-      background: var(--bg2);
-      padding: 1.5rem;
-      cursor: pointer;
-      transition: background 0.15s;
-      display: flex;
-      flex-direction: column;
-      gap: 0.875rem;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .tool-card:hover { background: var(--bg3); }
-
-    .tool-card::after {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, var(--teal-dark), var(--teal));
-      opacity: 0;
-      transition: opacity 0.2s;
-    }
-
-    .tool-card:hover::after { opacity: 1; }
-
-    .card-top {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 1rem;
-    }
-
-    .card-icon {
-      width: 44px; height: 44px;
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 22px;
-      flex-shrink: 0;
-    }
-
-    .card-meta {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 6px;
-    }
-
-    .badge {
-      font-size: 10px;
-      font-weight: 600;
-      letter-spacing: 0.05em;
-      padding: 3px 8px;
-      border-radius: 4px;
-      text-transform: uppercase;
-    }
-
-    .badge-live    { background: rgba(16,185,129,0.12); color: #10b981; border: 1px solid rgba(16,185,129,0.3); }
-    .badge-koenig  { background: rgba(0,130,160,0.15); color: var(--teal); border: 1px solid var(--border-hi); }
-    .badge-skillverse { background: rgba(139,92,246,0.12); color: #a78bfa; border: 1px solid rgba(139,92,246,0.3); }
-    .badge-open    { background: rgba(251,191,36,0.12); color: #fbbf24; border: 1px solid rgba(251,191,36,0.3); }
-
-    .card-arrow {
-      color: var(--muted);
-      font-size: 18px;
-      margin-top: 2px;
-    }
-
-    .card-name {
-      font-family: var(--font-head);
-      font-size: 1.05rem;
-      font-weight: 600;
-      color: var(--text);
-      line-height: 1.2;
-    }
-
-    .card-desc {
-      font-size: 13px;
-      color: var(--muted);
-      line-height: 1.6;
-      flex: 1;
-    }
-
-    .card-tags {
-      display: flex;
-      gap: 6px;
-      flex-wrap: wrap;
-    }
-
-    .tag {
-      font-size: 11px;
-      color: var(--muted);
-      background: rgba(255,255,255,0.04);
-      border: 1px solid var(--border);
-      padding: 2px 8px;
-      border-radius: 4px;
-    }
-
-    .card-action {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--teal);
-      margin-top: auto;
-    }
-
-    /* ── MODAL ── */
-    .modal-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(7,9,15,0.9);
-      backdrop-filter: blur(8px);
-      z-index: 200;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 1rem;
-    }
-
-    .modal-overlay.open { display: flex; }
-
-    .modal {
-      width: 100%;
-      max-width: 1100px;
-      height: 90vh;
-      background: var(--bg2);
-      border: 1px solid var(--border-hi);
-      border-radius: 16px;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-    }
-
-    .modal-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 1rem 1.25rem;
-      border-bottom: 1px solid var(--border);
-      flex-shrink: 0;
-    }
-
-    .modal-title-row {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .modal-icon {
-      width: 36px; height: 36px;
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 18px;
-    }
-
-    .modal-title {
-      font-family: var(--font-head);
-      font-size: 1rem;
-      font-weight: 600;
-    }
-
-    .modal-url {
-      font-size: 11px;
-      color: var(--muted);
-    }
-
-    .modal-actions {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .modal-btn {
-      background: var(--bg3);
-      border: 1px solid var(--border);
-      color: var(--text);
-      padding: 6px 14px;
-      border-radius: 6px;
-      font-size: 12px;
-      font-weight: 500;
-      cursor: pointer;
-      font-family: var(--font-body);
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      transition: border-color 0.15s;
-      text-decoration: none;
-    }
-
-    .modal-btn:hover { border-color: var(--border-hi); color: var(--teal); }
-
-    .modal-close {
-      background: none;
-      border: none;
-      color: var(--muted);
-      font-size: 20px;
-      cursor: pointer;
-      padding: 4px;
-      line-height: 1;
-      transition: color 0.15s;
-    }
-
-    .modal-close:hover { color: var(--text); }
-
-    .modal-iframe {
-      flex: 1;
-      border: none;
-      background: #fff;
-    }
-
-    .modal-loading {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 1rem;
-    }
-
-    .spinner {
-      width: 36px; height: 36px;
-      border: 2px solid var(--border);
-      border-top-color: var(--teal);
-      border-radius: 50%;
-      animation: spin 0.7s linear infinite;
-    }
-
-    @keyframes spin { to { transform: rotate(360deg); } }
-
-    /* ── FOOTER ── */
-    footer {
-      position: relative;
-      z-index: 1;
-      border-top: 1px solid var(--border);
-      padding: 2rem;
-      text-align: center;
-      color: var(--muted);
-      font-size: 12px;
-    }
-
-    footer a { color: var(--teal); text-decoration: none; }
-
-    /* ── HIDDEN ── */
-    .hidden { display: none !important; }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 640px) {
-      nav { padding: 0 1rem; }
-      .hero { padding: 120px 1rem 60px; }
-      .filter-wrap, .grid-wrap { padding-left: 1rem; padding-right: 1rem; }
-      .search-box { display: none; }
-      .nav-links { display: none; }
-      .tools-grid { grid-template-columns: 1fr; }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
-    }
-  </style>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>RR AI Tools Hub — Raushan Ranjan</title>
+<meta name="description" content="17 production AI tools built for enterprise training, corporate automation, and developer productivity. By Raushan Ranjan, Iconic Trainer at Koenig Solutions."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --c:#00c2e0;--cd:#0082A0;
+  --c08:rgba(0,194,224,.08);--c12:rgba(0,194,224,.12);
+  --c20:rgba(0,194,224,.20);--c40:rgba(0,194,224,.40);
+  --bg:#060810;--bg2:#0c0f1a;--bg3:#111422;--bg4:#181d2e;
+  --line:rgba(255,255,255,.06);--line2:rgba(255,255,255,.10);
+  --tx:#dde1ed;--tx2:#8892a4;--tx3:#4a5568;
+  --green:#10b981;--purple:#8b5cf6;--amber:#f59e0b;
+  --fh:'Space Grotesk',sans-serif;--fb:'Inter',sans-serif;
+  --r:10px;--r2:16px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--tx);font-family:var(--fb);font-size:15px;line-height:1.6;overflow-x:hidden}
+
+/* ambient glow + grid */
+body::before{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:
+    radial-gradient(ellipse 90% 55% at 50% -5%,rgba(0,130,160,.20),transparent),
+    linear-gradient(rgba(0,194,224,.022) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(0,194,224,.022) 1px,transparent 1px);
+  background-size:100% 100%,56px 56px,56px 56px;
+}
+
+/* ═══ NAV ═══ */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:900;
+  height:58px;display:flex;align-items:center;justify-content:space-between;
+  padding:0 2rem;
+  background:rgba(6,8,16,.80);backdrop-filter:blur(20px) saturate(1.3);
+  border-bottom:1px solid var(--line);
+}
+.n-brand{display:flex;align-items:center;gap:10px;font-family:var(--fh);font-weight:700;font-size:15px;color:var(--c);text-decoration:none}
+.n-logo{width:30px;height:30px;background:linear-gradient(135deg,var(--cd),var(--c));border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:#060810;flex-shrink:0}
+.n-links{display:flex;align-items:center;gap:1.75rem;list-style:none}
+.n-links a{color:var(--tx2);text-decoration:none;font-size:13px;font-weight:500;transition:color .15s}
+.n-links a:hover{color:var(--c)}
+.n-cta{
+  display:inline-flex;align-items:center;gap:6px;
+  background:var(--c12);border:1px solid var(--c40);
+  color:var(--c)!important;padding:6px 14px;border-radius:20px;
+  font-size:12px!important;font-weight:600!important;
+  transition:background .15s,color .15s!important;
+}
+.n-cta:hover{background:var(--c)!important;color:#060810!important}
+.n-pill{font-size:10px;font-weight:700;background:var(--c);color:#060810;padding:1px 6px;border-radius:20px}
+
+/* ═══ HERO ═══ */
+.hero{position:relative;z-index:1;padding:110px 2rem 0;max-width:1240px;margin:0 auto}
+.hero-inner{
+  display:grid;grid-template-columns:1fr auto;gap:3rem;align-items:end;
+  padding-bottom:2.5rem;border-bottom:1px solid var(--line);
+}
+.hero-tag{
+  display:inline-flex;align-items:center;gap:7px;
+  font-size:11px;font-weight:600;color:var(--c);
+  letter-spacing:.1em;text-transform:uppercase;margin-bottom:1.25rem;
+}
+.hero-tag::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--c);animation:blink 2s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+.hero h1{font-family:var(--fh);font-size:clamp(2.6rem,5vw,4.2rem);font-weight:700;line-height:1.03;letter-spacing:-.03em;margin-bottom:1rem}
+.hero h1 em{font-style:normal;background:linear-gradient(100deg,var(--cd),var(--c) 55%,#7dd3fc);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-sub{font-size:.95rem;color:var(--tx2);max-width:520px;line-height:1.78}
+.hero-sub strong{color:var(--tx);font-weight:500}
+.hero-right{display:flex;flex-direction:column;align-items:flex-end;gap:1.25rem}
+.hero-stats{display:flex;gap:2.25rem}
+.stat-n{font-family:var(--fh);font-size:2.3rem;font-weight:700;color:var(--c);line-height:1;display:block}
+.stat-l{font-size:11px;color:var(--tx3);font-weight:500;letter-spacing:.05em;text-transform:uppercase;margin-top:3px;display:block}
+.hero-chips{display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end}
+.chip{font-size:11px;color:var(--tx2);background:var(--bg3);border:1px solid var(--line2);padding:4px 11px;border-radius:20px}
+
+/* ═══ TOOLBAR ═══ */
+.toolbar{
+  position:relative;z-index:1;max-width:1240px;margin:0 auto;
+  padding:1.5rem 2rem;display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;
+}
+.t-filters{display:flex;gap:6px;flex-wrap:wrap}
+.t-btn{
+  display:inline-flex;align-items:center;gap:6px;
+  background:var(--bg2);border:1px solid var(--line);color:var(--tx2);
+  padding:7px 14px;border-radius:8px;font-size:12px;font-weight:500;
+  cursor:pointer;transition:all .15s;font-family:var(--fb);
+}
+.t-btn:hover{border-color:var(--line2);color:var(--tx)}
+.t-btn.active{background:var(--c12);border-color:var(--c40);color:var(--c)}
+.dot{width:6px;height:6px;border-radius:50%;display:inline-block;flex-shrink:0}
+.t-search{margin-left:auto;position:relative}
+.t-search input{
+  background:var(--bg2);border:1px solid var(--line);color:var(--tx);
+  padding:8px 14px 8px 36px;border-radius:8px;font-size:13px;
+  font-family:var(--fb);width:230px;outline:none;
+  transition:border-color .15s,width .25s;
+}
+.t-search input:focus{border-color:var(--c40);width:270px}
+.t-search input::placeholder{color:var(--tx3)}
+.si{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--tx3);font-size:14px;pointer-events:none;font-style:normal}
+.t-view{display:flex;gap:4px;margin-left:6px}
+.v-btn{
+  width:32px;height:32px;background:var(--bg2);border:1px solid var(--line);
+  border-radius:7px;display:flex;align-items:center;justify-content:center;
+  cursor:pointer;transition:all .15s;color:var(--tx3);font-size:14px;
+}
+.v-btn:hover{border-color:var(--line2);color:var(--tx)}
+.v-btn.active{background:var(--c12);border-color:var(--c40);color:var(--c)}
+
+/* ═══ CATALOGUE ═══ */
+.catalogue{position:relative;z-index:1;max-width:1240px;margin:0 auto;padding:0 2rem 6rem}
+.sec{margin-bottom:3.5rem;opacity:0;transform:translateY(14px);transition:opacity .45s ease,transform .45s ease}
+.sec.in{opacity:1;transform:translateY(0)}
+.sec-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;padding-bottom:.875rem;border-bottom:1px solid var(--line)}
+.sec-title{display:flex;align-items:center;gap:9px;font-family:var(--fh);font-size:.78rem;font-weight:600;color:var(--tx2);letter-spacing:.08em;text-transform:uppercase}
+.sec-ico{width:22px;height:22px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:11px}
+.sec-cnt{font-size:11px;font-weight:600;color:var(--tx3);background:var(--bg3);border:1px solid var(--line);padding:2px 9px;border-radius:20px}
+
+/* ═══ CARDS GRID ═══ */
+.cards-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r2);overflow:hidden;
+}
+.card{
+  background:var(--bg2);padding:1.4rem 1.5rem;cursor:pointer;
+  display:flex;flex-direction:column;gap:.875rem;
+  position:relative;overflow:hidden;transition:background .15s;
+  opacity:0;transform:translateY(10px);animation:cIn .35s ease forwards;
+}
+.card:nth-child(1){animation-delay:.05s}.card:nth-child(2){animation-delay:.10s}
+.card:nth-child(3){animation-delay:.15s}.card:nth-child(4){animation-delay:.20s}
+.card:nth-child(5){animation-delay:.25s}.card:nth-child(6){animation-delay:.30s}
+.card:nth-child(7){animation-delay:.35s}
+@keyframes cIn{to{opacity:1;transform:translateY(0)}}
+.card:hover{background:var(--bg3)}
+/* shimmer top edge */
+.card::before{content:'';position:absolute;top:0;left:-100%;right:100%;height:1px;background:linear-gradient(90deg,transparent,var(--c),transparent);transition:left .45s,right .45s}
+.card:hover::before{left:0;right:0}
+/* left accent */
+.card::after{content:'';position:absolute;top:0;left:0;bottom:0;width:2px;background:linear-gradient(180deg,var(--c),var(--cd));opacity:0;transition:opacity .2s}
+.card:hover::after{opacity:1}
+.card-head{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem}
+.card-ico{width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;border:1px solid var(--line);transition:transform .2s}
+.card:hover .card-ico{transform:scale(1.07)}
+.card-badges{display:flex;flex-direction:column;align-items:flex-end;gap:5px}
+.b{font-size:9px;font-weight:700;letter-spacing:.07em;padding:2px 7px;border-radius:4px;text-transform:uppercase}
+.bl{background:rgba(16,185,129,.1);color:var(--green);border:1px solid rgba(16,185,129,.25)}
+.bk{background:rgba(0,130,160,.12);color:var(--c);border:1px solid var(--c20)}
+.bs{background:rgba(139,92,246,.1);color:var(--purple);border:1px solid rgba(139,92,246,.25)}
+.bo{background:rgba(245,158,11,.08);color:var(--amber);border:1px solid rgba(245,158,11,.22)}
+.card-name{font-family:var(--fh);font-size:1rem;font-weight:600;color:var(--tx);line-height:1.2}
+.card-desc{font-size:12.5px;color:var(--tx2);line-height:1.65;flex:1}
+.card-stack{display:flex;gap:5px;flex-wrap:wrap}
+.stag{font-size:10.5px;color:var(--tx3);background:rgba(255,255,255,.03);border:1px solid var(--line);padding:2px 7px;border-radius:4px}
+.card-foot{display:flex;align-items:center;justify-content:space-between;padding-top:.6rem;border-top:1px solid var(--line)}
+.card-cta{font-size:11.5px;font-weight:600;color:var(--c);display:flex;align-items:center;gap:5px;transition:gap .15s}
+.card:hover .card-cta{gap:8px}
+.card-ext{width:26px;height:26px;background:var(--bg3);border:1px solid var(--line);border-radius:6px;display:flex;align-items:center;justify-content:center;color:var(--tx3);font-size:12px;transition:border-color .15s,color .15s}
+.card:hover .card-ext{border-color:var(--c20);color:var(--c)}
+
+/* ═══ LIST VIEW ═══ */
+.cards-list{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:var(--r2);overflow:hidden}
+.cards-list .card{flex-direction:row;align-items:center;gap:1rem;padding:1rem 1.25rem;border-bottom:1px solid var(--line)}
+.cards-list .card:last-child{border-bottom:none}
+.cards-list .card-ico{width:36px;height:36px;font-size:17px}
+.cards-list .cmain{flex:1;min-width:0}
+.cards-list .card-desc,.cards-list .card-stack{display:none}
+.cards-list .card-foot{border-top:none;padding-top:0;flex-shrink:0}
+.cards-list .card-badges{flex-direction:row;align-items:center}
+
+/* ═══ MODAL ═══ */
+.overlay{position:fixed;inset:0;background:rgba(6,8,16,.88);backdrop-filter:blur(18px);z-index:999;display:none;align-items:center;justify-content:center;padding:1rem}
+.overlay.open{display:flex;animation:fIn .18s ease}
+@keyframes fIn{from{opacity:0}to{opacity:1}}
+.modal{width:100%;max-width:1120px;height:88vh;background:var(--bg2);border:1px solid var(--c20);border-radius:var(--r2);display:flex;flex-direction:column;overflow:hidden;animation:sUp .22s ease}
+@keyframes sUp{from{transform:translateY(18px);opacity:0}to{transform:none;opacity:1}}
+.m-bar{display:flex;align-items:center;justify-content:space-between;padding:.875rem 1.25rem;border-bottom:1px solid var(--line);flex-shrink:0;background:var(--bg3)}
+.m-dots{display:flex;align-items:center;gap:6px}
+.m-dot{width:11px;height:11px;border-radius:50%}
+.m-dot:nth-child(1){background:#ef4444}.m-dot:nth-child(2){background:#f59e0b}.m-dot:nth-child(3){background:#10b981}
+.m-center{display:flex;align-items:center;gap:9px;flex:1;justify-content:center}
+.m-ico{width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:15px}
+.m-name{font-family:var(--fh);font-size:.9rem;font-weight:600}
+.m-urlbar{font-size:11px;color:var(--tx3);background:var(--bg);border:1px solid var(--line);padding:3px 10px;border-radius:5px;max-width:340px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.m-actions{display:flex;align-items:center;gap:6px}
+.m-btn{display:inline-flex;align-items:center;gap:5px;background:var(--bg2);border:1px solid var(--line);color:var(--tx2);padding:5px 12px;border-radius:7px;font-size:11.5px;font-weight:500;cursor:pointer;text-decoration:none;transition:all .15s;font-family:var(--fb)}
+.m-btn:hover{border-color:var(--c40);color:var(--c)}
+.m-close{background:none;border:none;color:var(--tx3);font-size:18px;cursor:pointer;padding:3px 6px;transition:color .15s;line-height:1}
+.m-close:hover{color:var(--tx)}
+.m-body{flex:1;display:flex;flex-direction:column;overflow:hidden}
+.m-loading{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem}
+.spinner{width:32px;height:32px;border:2px solid var(--line2);border-top-color:var(--c);border-radius:50%;animation:spin .65s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.m-frame{flex:1;border:none;background:#fff;display:none}
+.m-frame.show{display:block}
+
+/* ═══ FOOTER ═══ */
+footer{position:relative;z-index:1;border-top:1px solid var(--line);padding:2rem;text-align:center;color:var(--tx3);font-size:12px;display:flex;flex-direction:column;gap:8px}
+footer a{color:var(--c);text-decoration:none}
+
+/* ═══ RESPONSIVE ═══ */
+@media(max-width:900px){.hero-inner{grid-template-columns:1fr;gap:2rem}.hero-right{align-items:flex-start}.hero-stats{flex-wrap:wrap;gap:1.5rem}}
+@media(max-width:640px){nav{padding:0 1rem}.n-links{display:none}.hero{padding:90px 1rem 0}.toolbar,.catalogue{padding-left:1rem;padding-right:1rem}.t-search,.t-view{display:none}.cards-grid{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+</style>
 </head>
 <body>
 
-<!-- ── NAV ── -->
+<!-- NAV -->
 <nav>
-  <a href="#" class="nav-brand">
-    <div class="nav-logo">RR</div>
-    RR AI Tools Hub
-  </a>
-  <ul class="nav-links">
-    <li><a href="#tools">Tools</a></li>
+  <a href="#" class="n-brand"><div class="n-logo">RR</div>RR AI Tools Hub</a>
+  <ul class="n-links">
+    <li><a href="#catalogue">Catalogue</a></li>
     <li><a href="https://rrskillverse.in" target="_blank">RR Skillverse</a></li>
-    <li><a href="https://linkedin.com/in/raushanranjan" target="_blank">LinkedIn</a></li>
-    <li><a href="mailto:raushanr1107@gmail.com" class="nav-cta">Get in Touch</a></li>
+    <li><a href="https://github.com/raushan1107" target="_blank">GitHub</a></li>
+    <li><a href="https://www.youtube.com/@rrskillverse" target="_blank">YouTube</a></li>
+    <li><a href="mailto:raushanr1107@gmail.com" class="n-cta">Get in Touch <span class="n-pill">17</span></a></li>
   </ul>
 </nav>
 
-<!-- ── HERO ── -->
+<!-- HERO -->
 <section class="hero">
-  <div class="hero-eyebrow">17 Production AI Tools · Live &amp; Deployed</div>
-  <h1>
-    One platform.<br />
-    <span class="accent">Every AI tool I've built.</span>
-  </h1>
-  <p class="hero-sub">
-    Enterprise training tools, automation agents, developer utilities — built for real clients across 25+ countries. <em>Why before How</em> in every solution.
-  </p>
-  <div class="hero-stats">
-    <div class="hero-stat">
-      <div class="hero-stat-num">17</div>
-      <div class="hero-stat-label">Live AI Tools</div>
+  <div class="hero-inner">
+    <div>
+      <div class="hero-tag">Raushan Ranjan · Iconic Trainer · Microsoft Certified</div>
+      <h1>Every AI tool<br/>I've <em>shipped.</em></h1>
+      <p class="hero-sub">Enterprise training intelligence, live polling engines, certification tutors, content automation — 17 production tools built for real clients across 25+ countries.<br/><br/>Every solution starts with <strong>Why</strong>, not How.</p>
     </div>
-    <div class="hero-divider"></div>
-    <div class="hero-stat">
-      <div class="hero-stat-num">40+</div>
-      <div class="hero-stat-label">Enterprise Clients</div>
-    </div>
-    <div class="hero-divider"></div>
-    <div class="hero-stat">
-      <div class="hero-stat-num">25+</div>
-      <div class="hero-stat-label">Countries Served</div>
-    </div>
-    <div class="hero-divider"></div>
-    <div class="hero-stat">
-      <div class="hero-stat-num">MCT</div>
-      <div class="hero-stat-label">Microsoft Certified</div>
+    <div class="hero-right">
+      <div class="hero-stats">
+        <div><span class="stat-n" id="count-tools">17</span><span class="stat-l">Live tools</span></div>
+        <div><span class="stat-n">40+</span><span class="stat-l">Enterprises</span></div>
+        <div><span class="stat-n">25+</span><span class="stat-l">Countries</span></div>
+      </div>
+      <div class="hero-chips">
+        <span class="chip">Azure OpenAI</span><span class="chip">Node.js</span>
+        <span class="chip">FastAPI</span><span class="chip">Supabase</span>
+        <span class="chip">WebSocket</span><span class="chip">GPT-4o</span>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ── FILTER BAR ── -->
-<div class="filter-wrap" id="tools">
-  <div class="filter-bar">
-    <span class="filter-label">Filter:</span>
-    <button class="filter-btn active" data-filter="all">All tools</button>
-    <button class="filter-btn" data-filter="koenig">Koenig Enterprise</button>
-    <button class="filter-btn" data-filter="skillverse">RR Skillverse</button>
-    <button class="filter-btn" data-filter="open">Open Tools</button>
-    <div class="search-box">
-      <span class="search-icon">⌕</span>
-      <input type="text" id="search" placeholder="Search tools…" autocomplete="off" />
-    </div>
+<!-- TOOLBAR -->
+<div class="toolbar" id="catalogue">
+  <div class="t-filters">
+    <button class="t-btn active" data-filter="all"><span class="dot" style="background:var(--c)"></span>All tools</button>
+    <button class="t-btn" data-filter="koenig"><span class="dot" style="background:var(--c)"></span>Koenig Enterprise</button>
+    <button class="t-btn" data-filter="kxs"><span class="dot" style="background:var(--purple)"></span>Koenig × Skillverse</button>
+    <button class="t-btn" data-filter="open"><span class="dot" style="background:var(--amber)"></span>Open Tools</button>
+  </div>
+  <div class="t-search"><i class="si">⌕</i><input type="text" id="search" placeholder="Search tools, tags…" autocomplete="off"/></div>
+  <div class="t-view">
+    <button class="v-btn active" id="vg" title="Grid">⊞</button>
+    <button class="v-btn" id="vl" title="List">☰</button>
   </div>
 </div>
 
-<!-- ── TOOLS GRID ── -->
-<div class="grid-wrap">
+<!-- CATALOGUE -->
+<div class="catalogue">
 
-  <!-- KOENIG ENTERPRISE -->
-  <div class="section-label" data-section="koenig">Koenig Enterprise Tools</div>
-  <div class="tools-grid" id="grid-koenig">
-
-    <div class="tool-card" data-category="koenig" data-name="Ask SOT" data-url="https://ask-sot.onrender.com" data-tags="azure openai,chromadb,fastapi,trainer tools">
-      <div class="card-top">
-        <div class="card-icon" style="background:rgba(0,194,224,0.1);">🗂️</div>
-        <div class="card-meta">
-          <span class="badge badge-live">Live</span>
-          <span class="badge badge-koenig">Koenig</span>
-        </div>
-      </div>
-      <div class="card-name">Ask SOT</div>
-      <div class="card-desc">Trainer SOT document intelligence. Query any schedule-of-training document with Azure OpenAI + ChromaDB. Includes RMS auth and admin dashboard.</div>
-      <div class="card-tags">
-        <span class="tag">FastAPI</span><span class="tag">Azure OpenAI</span><span class="tag">ChromaDB</span>
-      </div>
-      <div class="card-action">Launch tool →</div>
+  <!-- § KOENIG ENTERPRISE -->
+  <div class="sec" id="sec-koenig">
+    <div class="sec-head">
+      <div class="sec-title"><div class="sec-ico" style="background:var(--c12);border:1px solid var(--c20)">🏢</div>Koenig Enterprise Tools</div>
+      <span class="sec-cnt" id="cnt-koenig">4 tools</span>
     </div>
+    <div class="cards-grid" id="grid-koenig">
 
-    <div class="tool-card" data-category="koenig" data-name="MS Notes Generator" data-url="https://ms-notes-generator.azurewebsites.net/" data-tags="notes,powerpoint,microsoft,generator">
-      <div class="card-top">
-        <div class="card-icon" style="background:rgba(0,194,224,0.1);">📝</div>
-        <div class="card-meta">
-          <span class="badge badge-live">Live</span>
-          <span class="badge badge-koenig">Koenig</span>
-        </div>
+      <div class="card" data-cat="koenig" data-name="Ask SOT" data-url="https://ask-sot.onrender.com" data-tags="azure openai,chromadb,fastapi,trainer,sot,document,query">
+        <div class="card-head"><div class="card-ico" style="background:rgba(0,194,224,.08)">🗂️</div><div class="card-badges"><span class="b bl">Live</span><span class="b bk">Koenig</span></div></div>
+        <div class="card-name">Ask SOT</div>
+        <div class="card-desc">Trainer SOT document intelligence. Query any schedule-of-training with Azure OpenAI + ChromaDB vector search. RMS auth integration and admin dashboard included.</div>
+        <div class="card-stack"><span class="stag">FastAPI</span><span class="stag">Azure OpenAI</span><span class="stag">ChromaDB</span><span class="stag">MongoDB Atlas</span></div>
+        <div class="card-foot"><span class="card-cta">Launch tool →</span><span class="card-ext">↗</span></div>
       </div>
-      <div class="card-name">MS Notes Generator</div>
-      <div class="card-desc">Auto-generates structured Microsoft course notes from slide content. Saves hours of manual note preparation for trainers before ILT/VILT delivery.</div>
-      <div class="card-tags">
-        <span class="tag">Azure OpenAI</span><span class="tag">Node.js</span><span class="tag">PPTX</span>
+
+      <div class="card" data-cat="koenig" data-name="MS Notes Generator" data-url="https://ms-notes-generator.azurewebsites.net/" data-tags="notes,powerpoint,microsoft,generator,slides,course,pptx">
+        <div class="card-head"><div class="card-ico" style="background:rgba(0,194,224,.08)">📝</div><div class="card-badges"><span class="b bl">Live</span><span class="b bk">Koenig</span></div></div>
+        <div class="card-name">MS Notes Generator</div>
+        <div class="card-desc">Auto-generates structured Microsoft Official Course notes from slide content. Saves hours of trainer prep time before ILT/VILT delivery.</div>
+        <div class="card-stack"><span class="stag">Azure OpenAI</span><span class="stag">Node.js</span><span class="stag">PPTX Parser</span></div>
+        <div class="card-foot"><span class="card-cta">Launch tool →</span><span class="card-ext">↗</span></div>
       </div>
-      <div class="card-action">Launch tool →</div>
+
+      <div class="card" data-cat="koenig" data-name="RR Pulse" data-url="https://rrpulse.azurewebsites.net/" data-tags="polling,quiz,websocket,realtime,classroom,engagement,leaderboard,vilt">
+        <div class="card-head"><div class="card-ico" style="background:rgba(139,92,246,.08)">📊</div><div class="card-badges"><span class="b bl">Live</span><span class="b bk">Koenig</span></div></div>
+        <div class="card-name">RR Pulse</div>
+        <div class="card-desc">Live polling and quiz engine for training sessions. Real-time WebSocket voting, instant results visualization, and leaderboard — works in any VILT setup.</div>
+        <div class="card-stack"><span class="stag">WebSocket</span><span class="stag">Node.js</span><span class="stag">Real-time</span></div>
+        <div class="card-foot"><span class="card-cta">Launch tool →</span><span class="card-ext">↗</span></div>
+      </div>
+
+      <div class="card" data-cat="koenig" data-name="Kite Konnect" data-url="https://kitekonnect.azurewebsites.net/" data-tags="koenig,connect,trainer,platform,coordinator,session,management">
+        <div class="card-head"><div class="card-ico" style="background:rgba(0,194,224,.08)">🔗</div><div class="card-badges"><span class="b bl">Live</span><span class="b bk">Koenig</span></div></div>
+        <div class="card-name">Kite Konnect</div>
+        <div class="card-desc">Trainer-client connectivity and session management platform built for Koenig's delivery workflow. Bridges trainers, coordinators, and learners in one place.</div>
+        <div class="card-stack"><span class="stag">Azure</span><span class="stag">Supabase</span><span class="stag">Node.js</span></div>
+        <div class="card-foot"><span class="card-cta">Launch tool →</span><span class="card-ext">↗</span></div>
+      </div>
+
     </div>
-
-    <div class="tool-card" data-category="koenig" data-name="RR Pulse" data-url="https://rrpulse.azurewebsites.net/" data-tags="polling,quiz,websocket,realtime,classroom">
-      <div class="card-top">
-        <div class="card-icon" style="background:rgba(139,92,246,0.1);">📊</div>
-        <div class="card-meta">
-          <span class="badge badge-live">Live</span>
-          <span class="badge badge-koenig">Koenig</span>
-        </div>
-      </div>
-      <div class="card-name">RR Pulse</div>
-      <div class="card-desc">Live polling and quiz engine for training sessions. Real-time WebSocket voting, instant results visualization, and leaderboard — works in any VILT setup.</div>
-      <div class="card-tags">
-        <span class="tag">WebSocket</span><span class="tag">Node.js</span><span class="tag">Real-time</span>
-      </div>
-      <div class="card-action">Launch tool →</div>
-    </div>
-
-    <div class="tool-card" data-category="koenig" data-name="Kite Konnect" data-url="https://kitekonnect.azurewebsites.net/" data-tags="koenig,connect,trainer,platform">
-      <div class="card-top">
-        <div class="card-icon" style="background:rgba(0,194,224,0.1);">🔗</div>
-        <div class="card-meta">
-          <span class="badge badge-live">Live</span>
-          <span class="badge badge-koenig">Koenig</span>
-        </div>
-      </div>
-      <div class="card-name">Kite Konnect</div>
-      <div class="card-desc">Trainer-client connectivity and session management platform built for Koenig's delivery workflow. Bridges trainers, coordinators, and learners in one place.</div>
-      <div class="card-tags">
-        <span class="tag">Azure</span><span class="tag">Supabase</span><span class="tag">Node.js</span>
-      </div>
-      <div class="card-action">Launch tool →</div>
-    </div>
-
   </div>
 
-  <!-- RR SKILLVERSE TOOLS -->
-  <div class="section-label" data-section="skillverse">Koenig Solutions x RR Skillverse Platform</div>
-  <div class="tools-grid" id="grid-skillverse">
-
-    <div class="tool-card" data-category="skillverse" data-name="AI Academy" data-url="https://ai-academy-koenig.azurewebsites.net/" data-tags="certification,learning,azure,microsoft,ai">
-      <div class="card-top">
-        <div class="card-icon" style="background:rgba(139,92,246,0.1);">🎓</div>
-        <div class="card-meta">
-          <span class="badge badge-live">Live</span>
-          <span class="badge badge-skillverse">Skillverse</span>
-        </div>
-      </div>
-      <div class="card-name">AI Academy</div>
-      <div class="card-desc">Structured learning paths for 14 Microsoft certifications. AI-powered study companion with concept explanations, practice questions, and exam readiness tracking.</div>
-      <div class="card-tags">
-        <span class="tag">Azure OpenAI</span><span class="tag">14 Certs</span><span class="tag">Supabase</span>
-      </div>
-      <div class="card-action">Launch tool →</div>
+  <!-- § KOENIG × SKILLVERSE -->
+  <div class="sec" id="sec-kxs">
+    <div class="sec-head">
+      <div class="sec-title"><div class="sec-ico" style="background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.2)">🎓</div>Koenig Solutions × RR Skillverse Platform</div>
+      <span class="sec-cnt" id="cnt-kxs">6 tools</span>
     </div>
+    <div class="cards-grid" id="grid-kxs">
 
-    <div class="tool-card" data-category="skillverse" data-name="Axiom AI" data-url="https://rrskillverse.in/ai-agent.html" data-tags="ai tutor,microsoft,certification,chat">
-      <div class="card-top">
-        <div class="card-icon" style="background:rgba(0,194,224,0.1);">🤖</div>
-        <div class="card-meta">
-          <span class="badge badge-live">Live</span>
-          <span class="badge badge-skillverse">Skillverse</span>
-        </div>
+      <div class="card" data-cat="kxs" data-name="AI Academy" data-url="https://ai-academy-koenig.azurewebsites.net/" data-tags="certification,learning,azure,microsoft,ai,study,exam,paths">
+        <div class="card-head"><div class="card-ico" style="background:rgba(139,92,246,.08)">🎓</div><div class="card-badges"><span class="b bl">Live</span><span class="b bs">Skillverse</span></div></div>
+        <div class="card-name">AI Academy</div>
+        <div class="card-desc">Structured learning paths for 14 Microsoft certifications. AI-powered study companion with concept explanations, practice questions, and exam readiness tracking.</div>
+        <div class="card-stack"><span class="stag">Azure OpenAI</span><span class="stag">14 Certifications</span><span class="stag">Supabase</span></div>
+        <div class="card-foot"><span class="card-cta">Launch tool →</span><span class="card-ext">↗</span></div>
       </div>
-      <div class="card-name">Axiom AI Tutor</div>
-      <div class="card-desc">Conversational AI tutor specialized in Microsoft certifications. Explains concepts, generates scenario questions, and adapts explanations to learner level.</div>
-      <div class="card-tags">
-        <span class="tag">GPT-4o</span><span class="tag">Azure OpenAI</span><span class="tag">Adaptive</span>
+
+      <div class="card" data-cat="kxs" data-name="Axiom AI Tutor" data-url="https://rrskillverse.in/ai-agent.html" data-tags="ai tutor,microsoft,certification,chat,adaptive,gpt,axiom">
+        <div class="card-head"><div class="card-ico" style="background:rgba(0,194,224,.08)">🤖</div><div class="card-badges"><span class="b bl">Live</span><span class="b bs">Skillverse</span></div></div>
+        <div class="card-name">Axiom AI Tutor</div>
+        <div class="card-desc">Conversational AI tutor specialized in Microsoft certifications. Explains concepts, generates scenario questions, and adapts to learner level in real time.</div>
+        <div class="card-stack"><span class="stag">GPT-4o</span><span class="stag">Azure OpenAI</span><span class="stag">Adaptive</span></div>
+        <div class="card-foot"><span class="card-cta">Launch tool →</span><span class="card-ext">↗</span></div>
       </div>
-      <div class="card-action">Launch tool →</div>
+
+      <div class="card" data-cat="kxs" data-name="Code Visualizer" data-url="https://rrskillverse.in/tools/code-visualizer/" data-tags="code,visualization,flowchart,diagram,developer,mermaid,visual">
+        <div class="card-head"><div class="card-ico" style="background:rgba(16,185,129,.08)">🧩</div><div class="card-badges"><span class="b bl">Live</span><span class="b bs">Skillverse</span></div></div>
+        <div class="card-name">Code Visualizer</div>
+        <div class="card-desc">Paste any code snippet and get an instant visual flowchart or diagram. Built for trainers to explain code logic visually during live sessions.</div>
+        <div class="card-stack"><span class="stag">Azure OpenAI</span><span class="stag">Mermaid.js</span><span class="stag">Node.js</span></div>
+        <div class="card-foot"><span class="card-cta">Launch tool →</span><span class="card-ext">↗</span></div>
+      </div>
+
+      <div class="card" data-cat="kxs" data-name="SEO Agent" data-url="https://rrskillverse.in/seo-agent/" data-tags="seo,youtube,content,optimization,ai,tags,title,description">
+        <div class="card-head"><div class="card-ico" style="background:rgba(245,158,11,.08)">📈</div><div class="card-badges"><span class="b bl">Live</span><span class="b bs">Skillverse</span></div></div>
+        <div class="card-name">SEO Agent</div>
+        <div class="card-desc">AI-powered SEO assistant for YouTube and blog content. Generates optimized titles, descriptions, tags, and thumbnail briefs for training content creators.</div>
+        <div class="card-stack"><span class="stag">Azure OpenAI</span><span class="stag">YouTube API</span><span class="stag">SEO</span></div>
+        <div class="card-foot"><span class="card-cta">Launch tool →</span><span class="card-ext">↗</span></div>
+      </div>
+
+      <div class="card" data-cat="kxs" data-name="Post Optimizer" data-url="https://rrskillverse.in/tools/post-optimizer/" data-tags="linkedin,social,content,ai,optimizer,rewrite,hook,engagement">
+        <div class="card-head"><div class="card-ico" style="background:rgba(0,194,224,.08)">✨</div><div class="card-badges"><span class="b bl">Live</span><span class="b bs">Skillverse</span></div></div>
+        <div class="card-name">Post Optimizer</div>
+        <div class="card-desc">Rewrites and enhances LinkedIn posts for maximum reach and engagement. Adjusts tone, format, hashtags, and hook — in seconds.</div>
+        <div class="card-stack"><span class="stag">GPT-4o</span><span class="stag">LinkedIn</span><span class="stag">Content AI</span></div>
+        <div class="card-foot"><span class="card-cta">Launch tool →</span><span class="card-ext">↗</span></div>
+      </div>
+
+      <div class="card" data-cat="kxs" data-name="PostCraft" data-url="https://rrskillverse.in/tools/postcraft/" data-tags="social media,post,generator,linkedin,twitter,hook,cta,hashtag">
+        <div class="card-head"><div class="card-ico" style="background:rgba(139,92,246,.08)">🖊️</div><div class="card-badges"><span class="b bl">Live</span><span class="b bs">Skillverse</span></div></div>
+        <div class="card-name">PostCraft</div>
+        <div class="card-desc">AI post generator for LinkedIn and social platforms. Input a topic or URL, choose a tone, and get platform-ready posts with hooks, CTAs, and hashtag strategies.</div>
+        <div class="card-stack"><span class="stag">Azure OpenAI</span><span class="stag">Social AI</span><span class="stag">Multi-platform</span></div>
+        <div class="card-foot"><span class="card-cta">Launch tool →</span><span class="card-ext">↗</span></div>
+      </div>
+
     </div>
-
-    <div class="tool-card" data-category="skillverse" data-name="Code Visualizer" data-url="https://rrskillverse.in/tools/code-visualizer/" data-tags="code,visualization,flowchart,diagram,developer">
-      <div class="card-top">
-        <div class="card-icon" style="background:rgba(16,185,129,0.1);">🧩</div>
-        <div class="card-meta">
-          <span class="badge badge-live">Live</span>
-          <span class="badge badge-skillverse">Skillverse</span>
-        </div>
-      </div>
-      <div class="card-name">Code Visualizer</div>
-      <div class="card-desc">Paste any code snippet and get an instant visual flowchart or diagram. Built for trainers to explain code logic visually during live sessions.</div>
-      <div class="card-tags">
-        <span class="tag">Azure OpenAI</span><span class="tag">Mermaid.js</span><span class="tag">Node.js</span>
-      </div>
-      <div class="card-action">Launch tool →</div>
-    </div>
-
-    <div class="tool-card" data-category="skillverse" data-name="SEO Agent" data-url="https://rrskillverse.in/seo-agent/" data-tags="seo,youtube,content,optimization,ai">
-      <div class="card-top">
-        <div class="card-icon" style="background:rgba(251,191,36,0.1);">📈</div>
-        <div class="card-meta">
-          <span class="badge badge-live">Live</span>
-          <span class="badge badge-skillverse">Skillverse</span>
-        </div>
-      </div>
-      <div class="card-name">SEO Agent</div>
-      <div class="card-desc">AI-powered SEO assistant for YouTube and blog content. Generates optimized titles, descriptions, tags, and thumbnails briefs for training content creators.</div>
-      <div class="card-tags">
-        <span class="tag">Azure OpenAI</span><span class="tag">YouTube API</span><span class="tag">SEO</span>
-      </div>
-      <div class="card-action">Launch tool →</div>
-    </div>
-
-    <div class="tool-card" data-category="skillverse" data-name="Post Optimizer" data-url="https://rrskillverse.in/tools/post-optimizer/" data-tags="linkedin,social,content,ai,optimizer">
-      <div class="card-top">
-        <div class="card-icon" style="background:rgba(0,194,224,0.1);">✨</div>
-        <div class="card-meta">
-          <span class="badge badge-live">Live</span>
-          <span class="badge badge-skillverse">Skillverse</span>
-        </div>
-      </div>
-      <div class="card-name">Post Optimizer</div>
-      <div class="card-desc">Rewrites and enhances LinkedIn posts for maximum reach and engagement. Adjusts tone, format, hashtags, and hook — in seconds.</div>
-      <div class="card-tags">
-        <span class="tag">GPT-4o</span><span class="tag">LinkedIn</span><span class="tag">Content AI</span>
-      </div>
-      <div class="card-action">Launch tool →</div>
-    </div>
-
-    <div class="tool-card" data-category="skillverse" data-name="PostCraft" data-url="https://rrskillverse.in/tools/postcraft/" data-tags="social media,post,generator,linkedin,twitter">
-      <div class="card-top">
-        <div class="card-icon" style="background:rgba(139,92,246,0.1);">🖊️</div>
-        <div class="card-meta">
-          <span class="badge badge-live">Live</span>
-          <span class="badge badge-skillverse">Skillverse</span>
-        </div>
-      </div>
-      <div class="card-name">PostCraft</div>
-      <div class="card-desc">AI post generator for LinkedIn and social. Input a topic or URL, choose a tone, and get platform-ready posts with hooks, CTAs, and hashtag strategies.</div>
-      <div class="card-tags">
-        <span class="tag">Azure OpenAI</span><span class="tag">Social AI</span><span class="tag">Multi-platform</span>
-      </div>
-      <div class="card-action">Launch tool →</div>
-    </div>
-
   </div>
 
-  <!-- OPEN TOOLS -->
-  <div class="section-label" data-section="open">Open Developer Tools</div>
-  <div class="tools-grid" id="grid-open">
-
-    <div class="tool-card" data-category="open" data-name="Markify+" data-url="https://rrskillverse.in/tools/markify/" data-tags="markdown,converter,html,docs,formatter">
-      <div class="card-top">
-        <div class="card-icon" style="background:rgba(16,185,129,0.1);">📄</div>
-        <div class="card-meta">
-          <span class="badge badge-live">Live</span>
-          <span class="badge badge-open">Open</span>
-        </div>
-      </div>
-      <div class="card-name">Markify+</div>
-      <div class="card-desc">Converts messy content into clean, structured Markdown or HTML. Perfect for trainers formatting course materials, blog posts, or documentation quickly.</div>
-      <div class="card-tags">
-        <span class="tag">Markdown</span><span class="tag">HTML</span><span class="tag">Formatting</span>
-      </div>
-      <div class="card-action">Launch tool →</div>
+  <!-- § OPEN TOOLS -->
+  <div class="sec" id="sec-open">
+    <div class="sec-head">
+      <div class="sec-title"><div class="sec-ico" style="background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.2)">⚡</div>Open Developer Tools</div>
+      <span class="sec-cnt" id="cnt-open">7 tools</span>
     </div>
+    <div class="cards-grid" id="grid-open">
 
-    <div class="tool-card" data-category="open" data-name="Error Explainer" data-url="https://rrskillverse.in/tools/error-explainer/" data-tags="debugging,error,ai,developer,code">
-      <div class="card-top">
-        <div class="card-icon" style="background:rgba(239,68,68,0.1);">🔍</div>
-        <div class="card-meta">
-          <span class="badge badge-live">Live</span>
-          <span class="badge badge-open">Open</span>
-        </div>
+      <div class="card" data-cat="open" data-name="Markify+" data-url="https://rrskillverse.in/tools/markify/" data-tags="markdown,converter,html,docs,formatter,content,clean">
+        <div class="card-head"><div class="card-ico" style="background:rgba(16,185,129,.08)">📄</div><div class="card-badges"><span class="b bl">Live</span><span class="b bo">Open</span></div></div>
+        <div class="card-name">Markify+</div>
+        <div class="card-desc">Converts messy content into clean, structured Markdown or HTML. Perfect for trainers formatting course materials, blog posts, or documentation quickly.</div>
+        <div class="card-stack"><span class="stag">Markdown</span><span class="stag">HTML</span><span class="stag">Formatter</span></div>
+        <div class="card-foot"><span class="card-cta">Launch tool →</span><span class="card-ext">↗</span></div>
       </div>
-      <div class="card-name">Error Explainer</div>
-      <div class="card-desc">Paste any error message or stack trace and get a plain-English explanation with root cause, fix steps, and prevention tips. Built for learners in live sessions.</div>
-      <div class="card-tags">
-        <span class="tag">Azure OpenAI</span><span class="tag">Debugging</span><span class="tag">Education</span>
+
+      <div class="card" data-cat="open" data-name="Error Explainer" data-url="https://rrskillverse.in/tools/error-explainer/" data-tags="debugging,error,ai,developer,code,stack trace,fix,root cause">
+        <div class="card-head"><div class="card-ico" style="background:rgba(239,68,68,.08)">🔍</div><div class="card-badges"><span class="b bl">Live</span><span class="b bo">Open</span></div></div>
+        <div class="card-name">Error Explainer</div>
+        <div class="card-desc">Paste any error message or stack trace and get a plain-English explanation with root cause, fix steps, and prevention tips. Built for learners in live sessions.</div>
+        <div class="card-stack"><span class="stag">Azure OpenAI</span><span class="stag">Debugging</span><span class="stag">Education</span></div>
+        <div class="card-foot"><span class="card-cta">Launch tool →</span><span class="card-ext">↗</span></div>
       </div>
-      <div class="card-action">Launch tool →</div>
+
+      <div class="card" data-cat="open" data-name="DAX to English Explainer" data-url="https://rrskillverse.in/tools/dax-explainer/" data-tags="dax,power bi,explainer,business intelligence,calculate,filter,measure,formula">
+        <div class="card-head"><div class="card-ico" style="background:rgba(245,158,11,.08)">📊</div><div class="card-badges"><span class="b bl">Live</span><span class="b bo">Open</span></div></div>
+        <div class="card-name">DAX to English Explainer</div>
+        <div class="card-desc">Translates complex DAX formulas into plain English. Great for Power BI learners struggling with CALCULATE, FILTER, and time intelligence patterns.</div>
+        <div class="card-stack"><span class="stag">DAX</span><span class="stag">Power BI</span><span class="stag">Azure OpenAI</span></div>
+        <div class="card-foot"><span class="card-cta">Launch tool →</span><span class="card-ext">↗</span></div>
+      </div>
+
+      <div class="card" data-cat="open" data-name="CodeExplainer" data-url="https://rrskillverse.in/tools/code-explainer/" data-tags="code,explain,developer,learning,ai,languages,line by line,40+">
+        <div class="card-head"><div class="card-ico" style="background:rgba(0,194,224,.08)">💻</div><div class="card-badges"><span class="b bl">Live</span><span class="b bo">Open</span></div></div>
+        <div class="card-name">CodeExplainer</div>
+        <div class="card-desc">Explains any code block line by line in plain language. Supports 40+ languages. For learners who've copied code without truly understanding it.</div>
+        <div class="card-stack"><span class="stag">Azure OpenAI</span><span class="stag">40+ Languages</span><span class="stag">Education</span></div>
+        <div class="card-foot"><span class="card-cta">Launch tool →</span><span class="card-ext">↗</span></div>
+      </div>
+
+      <div class="card" data-cat="open" data-name="Claude Compact Prompt" data-url="https://github.com/raushan1107/compact-mode-claude-skill" data-tags="claude,prompt,compact,skill,github,open source,minimal,no-fluff">
+        <div class="card-head"><div class="card-ico" style="background:rgba(139,92,246,.08)">🎯</div><div class="card-badges"><span class="b bl">Live</span><span class="b bo">Open</span></div></div>
+        <div class="card-name">Claude Compact Prompt</div>
+        <div class="card-desc">Open-source skill that forces Claude into a minimal, no-fluff response mode. Published on GitHub with RR Skillverse branding. 1-click install for Claude.ai users.</div>
+        <div class="card-stack"><span class="stag">Claude</span><span class="stag">Prompt Engineering</span><span class="stag">Open Source</span></div>
+        <div class="card-foot"><span class="card-cta">View on GitHub →</span><span class="card-ext">↗</span></div>
+      </div>
+
+      <div class="card" data-cat="open" data-name="GitHub Copilot Compact Prompt" data-url="https://github.com/raushan1107/compact-mode-copilot" data-tags="copilot,github,prompt,compact,skill,open source,developer,concise">
+        <div class="card-head"><div class="card-ico" style="background:rgba(16,185,129,.08)">🤝</div><div class="card-badges"><span class="b bl">Live</span><span class="b bo">Open</span></div></div>
+        <div class="card-name">Copilot Compact Prompt</div>
+        <div class="card-desc">GitHub Copilot counterpart to the Claude compact skill. Forces concise, direct completions without boilerplate explanations. Popular with senior developers.</div>
+        <div class="card-stack"><span class="stag">GitHub Copilot</span><span class="stag">Prompt Engineering</span><span class="stag">Open Source</span></div>
+        <div class="card-foot"><span class="card-cta">View on GitHub →</span><span class="card-ext">↗</span></div>
+      </div>
+
+      <div class="card" data-cat="open" data-name="RR Skillverse" data-url="https://rrskillverse.in" data-tags="platform,edtech,courses,learning,microsoft,pwa,mobile,blog">
+        <div class="card-head"><div class="card-ico" style="background:rgba(0,194,224,.08)">🌐</div><div class="card-badges"><span class="b bl">Live</span><span class="b bo">Open</span></div></div>
+        <div class="card-name">RR Skillverse</div>
+        <div class="card-desc">The main EdTech platform — home to AI Academy, ExamPrep, blog, workshops, and all learning tools. PWA-enabled with offline support and mobile-first design.</div>
+        <div class="card-stack"><span class="stag">PWA</span><span class="stag">Node.js</span><span class="stag">Supabase</span></div>
+        <div class="card-foot"><span class="card-cta">Visit platform →</span><span class="card-ext">↗</span></div>
+      </div>
+
     </div>
-
-    <div class="tool-card" data-category="open" data-name="DAX to English" data-url="https://rrskillverse.in/tools/dax-explainer/" data-tags="dax,power bi,sql,explainer,business intelligence">
-      <div class="card-top">
-        <div class="card-icon" style="background:rgba(251,191,36,0.1);">📊</div>
-        <div class="card-meta">
-          <span class="badge badge-live">Live</span>
-          <span class="badge badge-open">Open</span>
-        </div>
-      </div>
-      <div class="card-name">DAX to English</div>
-      <div class="card-desc">Translates complex DAX formulas into plain English explanations. Great for Power BI learners who struggle with CALCULATE, FILTER, and time intelligence functions.</div>
-      <div class="card-tags">
-        <span class="tag">DAX</span><span class="tag">Power BI</span><span class="tag">Azure OpenAI</span>
-      </div>
-      <div class="card-action">Launch tool →</div>
-    </div>
-
-    <div class="tool-card" data-category="open" data-name="CodeExplainer" data-url="https://rrskillverse.in/tools/code-explainer/" data-tags="code,explain,developer,learning,ai">
-      <div class="card-top">
-        <div class="card-icon" style="background:rgba(0,194,224,0.1);">💻</div>
-        <div class="card-meta">
-          <span class="badge badge-live">Live</span>
-          <span class="badge badge-open">Open</span>
-        </div>
-      </div>
-      <div class="card-name">CodeExplainer</div>
-      <div class="card-desc">Explains any code block line by line in plain language. Supports 40+ languages. Designed to help learners understand code they've copied without truly understanding it.</div>
-      <div class="card-tags">
-        <span class="tag">Azure OpenAI</span><span class="tag">40+ Languages</span><span class="tag">Education</span>
-      </div>
-      <div class="card-action">Launch tool →</div>
-    </div>
-
-    <div class="tool-card" data-category="open" data-name="Claude Compact Prompt" data-url="https://github.com/raushan1107/compact-mode-claude-skill" data-tags="claude,prompt,compact,skill,github">
-      <div class="card-top">
-        <div class="card-icon" style="background:rgba(139,92,246,0.1);">🎯</div>
-        <div class="card-meta">
-          <span class="badge badge-live">Live</span>
-          <span class="badge badge-open">Open</span>
-        </div>
-      </div>
-      <div class="card-name">Claude Compact Prompt</div>
-      <div class="card-desc">Open-source skill that forces Claude into a minimal, no-fluff response mode. Published on GitHub with RR Skillverse branding. 1-click install for Claude.ai.</div>
-      <div class="card-tags">
-        <span class="tag">Claude</span><span class="tag">Prompt Engineering</span><span class="tag">Open Source</span>
-      </div>
-      <div class="card-action">View on GitHub →</div>
-    </div>
-
-    <div class="tool-card" data-category="open" data-name="GitHub Copilot Compact Prompt" data-url="https://github.com/raushan1107/compact-mode-copilot" data-tags="copilot,github,prompt,compact,skill">
-      <div class="card-top">
-        <div class="card-icon" style="background:rgba(16,185,129,0.1);">🤝</div>
-        <div class="card-meta">
-          <span class="badge badge-live">Live</span>
-          <span class="badge badge-open">Open</span>
-        </div>
-      </div>
-      <div class="card-name">Copilot Compact Prompt</div>
-      <div class="card-desc">GitHub Copilot counterpart to the Claude compact skill. Forces concise, direct completions without boilerplate explanations. Popular with senior developers.</div>
-      <div class="card-tags">
-        <span class="tag">GitHub Copilot</span><span class="tag">Prompt Engineering</span><span class="tag">Open Source</span>
-      </div>
-      <div class="card-action">View on GitHub →</div>
-    </div>
-
-    <div class="tool-card" data-category="open" data-name="RR Skillverse" data-url="https://rrskillverse.in" data-tags="platform,edtech,courses,learning,microsoft">
-      <div class="card-top">
-        <div class="card-icon" style="background:rgba(0,194,224,0.1);">🌐</div>
-        <div class="card-meta">
-          <span class="badge badge-live">Live</span>
-          <span class="badge badge-open">Open</span>
-        </div>
-      </div>
-      <div class="card-name">RR Skillverse</div>
-      <div class="card-desc">The main EdTech platform — home to AI Academy, ExamPrep, blog, workshops, and all learning tools. PWA-enabled with offline support and mobile-first design.</div>
-      <div class="card-tags">
-        <span class="tag">PWA</span><span class="tag">Next.js</span><span class="tag">Supabase</span>
-      </div>
-      <div class="card-action">Visit platform →</div>
-    </div>
-
   </div>
+
 </div>
 
-<!-- ── FOOTER ── -->
+<!-- FOOTER -->
 <footer>
   <p>Built by <a href="https://rrskillverse.in" target="_blank">Raushan Ranjan</a> · Microsoft Certified Trainer · Iconic Trainer at Koenig Solutions</p>
-  <p style="margin-top:6px">
+  <p>
     <a href="https://github.com/raushan1107" target="_blank">GitHub</a> ·
     <a href="https://linkedin.com/in/raushanranjan" target="_blank">LinkedIn</a> ·
-    <a href="https://youtube.com/@rrskillverse" target="_blank">YouTube</a> ·
+    <a href="https://www.youtube.com/@rrskillverse" target="_blank">YouTube</a> ·
     <a href="mailto:raushanr1107@gmail.com">raushanr1107@gmail.com</a>
   </p>
 </footer>
 
-<!-- ── MODAL ── -->
-<div class="modal-overlay" id="modal">
+<!-- MODAL -->
+<div class="overlay" id="modal">
   <div class="modal">
-    <div class="modal-header">
-      <div class="modal-title-row">
-        <div class="modal-icon" id="modal-icon" style="background:rgba(0,194,224,0.1);font-size:18px;"></div>
-        <div>
-          <div class="modal-title" id="modal-title"></div>
-          <div class="modal-url" id="modal-url"></div>
-        </div>
+    <div class="m-bar">
+      <div class="m-dots"><div class="m-dot"></div><div class="m-dot"></div><div class="m-dot"></div></div>
+      <div class="m-center">
+        <div class="m-ico" id="m-ico" style="background:var(--c12)"></div>
+        <div class="m-name" id="m-name"></div>
+        <div class="m-urlbar" id="m-urlbar"></div>
       </div>
-      <div class="modal-actions">
-        <a href="#" id="modal-open-link" target="_blank" class="modal-btn">
-          ↗ Open in new tab
-        </a>
-        <button class="modal-close" id="modal-close-btn" aria-label="Close">✕</button>
+      <div class="m-actions">
+        <a href="#" id="m-link" target="_blank" class="m-btn">↗ New tab</a>
+        <button class="m-close" id="m-close">✕</button>
       </div>
     </div>
-    <div class="modal-loading" id="modal-loading">
-      <div class="spinner"></div>
-      <span style="color:var(--muted);font-size:13px;">Loading tool…</span>
+    <div class="m-body">
+      <div class="m-loading" id="m-loading">
+        <div class="spinner"></div>
+        <span style="color:var(--tx2);font-size:13px">Loading tool…</span>
+      </div>
+      <iframe class="m-frame" id="m-frame" title="Tool preview" allow="fullscreen"></iframe>
     </div>
-    <iframe class="modal-iframe hidden" id="modal-frame" title="Tool preview" allow="fullscreen"></iframe>
   </div>
 </div>
 
 <script>
-  // ── DATA ──
-  const cards = document.querySelectorAll('.tool-card');
-  const filterBtns = document.querySelectorAll('.filter-btn');
-  const searchInput = document.getElementById('search');
-  const modal = document.getElementById('modal');
-  const modalTitle = document.getElementById('modal-title');
-  const modalUrl = document.getElementById('modal-url');
-  const modalIcon = document.getElementById('modal-icon');
-  const modalFrame = document.getElementById('modal-frame');
-  const modalLoading = document.getElementById('modal-loading');
-  const modalOpenLink = document.getElementById('modal-open-link');
-  const modalCloseBtn = document.getElementById('modal-close-btn');
-  const sectionLabels = document.querySelectorAll('.section-label');
-  const grids = document.querySelectorAll('.tools-grid');
+const ICONS={
+  'Ask SOT':'🗂️','MS Notes Generator':'📝','RR Pulse':'📊','Kite Konnect':'🔗',
+  'AI Academy':'🎓','Axiom AI Tutor':'🤖','Code Visualizer':'🧩','SEO Agent':'📈',
+  'Post Optimizer':'✨','PostCraft':'🖊️','Markify+':'📄','Error Explainer':'🔍',
+  'DAX to English Explainer':'📊','CodeExplainer':'💻',
+  'Claude Compact Prompt':'🎯','GitHub Copilot Compact Prompt':'🤝',
+  'Copilot Compact Prompt':'🤝','RR Skillverse':'🌐'
+};
+const GH=['Claude Compact Prompt','GitHub Copilot Compact Prompt','Copilot Compact Prompt'];
 
-  // ── FILTER ──
-  let activeFilter = 'all';
-  let searchQuery = '';
+const cards=[...document.querySelectorAll('.card')];
+const fBtns=[...document.querySelectorAll('.t-btn[data-filter]')];
+const srch=document.getElementById('search');
+const vg=document.getElementById('vg'),vl=document.getElementById('vl');
+const allGrids=document.querySelectorAll('.cards-grid');
+const overlay=document.getElementById('modal');
+const mIco=document.getElementById('m-ico'),mName=document.getElementById('m-name');
+const mUrlbar=document.getElementById('m-urlbar'),mLink=document.getElementById('m-link');
+const mClose=document.getElementById('m-close');
+const mLoading=document.getElementById('m-loading'),mFrame=document.getElementById('m-frame');
+const secs={koenig:document.getElementById('sec-koenig'),kxs:document.getElementById('sec-kxs'),open:document.getElementById('sec-open')};
+const grids={koenig:document.getElementById('grid-koenig'),kxs:document.getElementById('grid-kxs'),open:document.getElementById('grid-open')};
+const cnts={koenig:document.getElementById('cnt-koenig'),kxs:document.getElementById('cnt-kxs'),open:document.getElementById('cnt-open')};
 
-  function applyFilters() {
-    cards.forEach(card => {
-      const cat = card.dataset.category;
-      const name = card.dataset.name.toLowerCase();
-      const tags = (card.dataset.tags || '').toLowerCase();
-      const matchesFilter = activeFilter === 'all' || cat === activeFilter;
-      const matchesSearch = !searchQuery || name.includes(searchQuery) || tags.includes(searchQuery);
-      card.style.display = matchesFilter && matchesSearch ? '' : 'none';
-    });
+let af='all',sq='',listMode=false,ft=null;
 
-    // Hide empty grids and section labels
-    grids.forEach((grid, i) => {
-      const visibleCards = grid.querySelectorAll('.tool-card:not([style*="display: none"])');
-      const isEmpty = visibleCards.length === 0;
-      grid.style.display = isEmpty ? 'none' : '';
-    });
-
-    const sections = {
-      'grid-koenig': document.querySelector('[data-section="koenig"]'),
-      'grid-skillverse': document.querySelector('[data-section="skillverse"]'),
-      'grid-open': document.querySelector('[data-section="open"]')
-    };
-    Object.entries(sections).forEach(([gridId, label]) => {
-      if (!label) return;
-      const grid = document.getElementById(gridId);
-      label.style.display = grid && grid.style.display === 'none' ? 'none' : '';
-    });
-  }
-
-  filterBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      filterBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      activeFilter = btn.dataset.filter;
-      applyFilters();
-    });
+function applyFilters(){
+  const cc={koenig:0,kxs:0,open:0};
+  cards.forEach(c=>{
+    const cat=c.dataset.cat,name=c.dataset.name.toLowerCase(),tags=(c.dataset.tags||'').toLowerCase();
+    const show=(af==='all'||cat===af)&&(!sq||name.includes(sq)||tags.includes(sq));
+    c.style.display=show?'':'none';
+    if(show) cc[cat]=(cc[cat]||0)+1;
   });
-
-  searchInput.addEventListener('input', e => {
-    searchQuery = e.target.value.toLowerCase().trim();
-    applyFilters();
+  let total=0;
+  Object.entries(cc).forEach(([k,v])=>{
+    total+=v;
+    secs[k].style.display=v>0?'':'none';
+    if(cnts[k]) cnts[k].textContent=`${v} tool${v===1?'':'s'}`;
   });
+  document.getElementById('count-tools').textContent=total;
+}
 
-  // ── MODAL ──
-  const icons = {
-    'Ask SOT': '🗂️', 'MS Notes Generator': '📝', 'RR Pulse': '📊',
-    'Kite Konnect': '🔗', 'AI Academy': '🎓', 'Axiom AI': '🤖',
-    'Code Visualizer': '🧩', 'SEO Agent': '📈', 'Post Optimizer': '✨',
-    'PostCraft': '🖊️', 'Markify+': '📄', 'Error Explainer': '🔍',
-    'DAX to English': '📊', 'CodeExplainer': '💻',
-    'Claude Compact Prompt': '🎯', 'GitHub Copilot Compact Prompt': '🤝',
-    'RR Skillverse': '🌐'
-  };
+fBtns.forEach(b=>b.addEventListener('click',()=>{
+  fBtns.forEach(x=>x.classList.remove('active'));
+  b.classList.add('active');af=b.dataset.filter;applyFilters();
+}));
+srch.addEventListener('input',e=>{sq=e.target.value.toLowerCase().trim();applyFilters();});
 
-  // GitHub-hosted tools open directly in new tab, not iframe
-  const newTabOnly = ['Claude Compact Prompt', 'GitHub Copilot Compact Prompt'];
-
-  cards.forEach(card => {
-    card.addEventListener('click', () => {
-      const name = card.dataset.name;
-      const url = card.dataset.url;
-
-      if (newTabOnly.includes(name)) {
-        window.open(url, '_blank');
-        return;
+function setView(list){
+  listMode=list;
+  allGrids.forEach(g=>{g.className=list?'cards-list':'cards-grid'});
+  vg.classList.toggle('active',!list);vl.classList.toggle('active',list);
+  if(list){
+    cards.forEach(c=>{
+      if(!c.querySelector('.cmain')){
+        const nm=c.querySelector('.card-name');
+        const d=document.createElement('div');d.className='cmain';
+        nm.parentNode.insertBefore(d,nm);d.appendChild(nm);
       }
-
-      modalTitle.textContent = name;
-      modalUrl.textContent = url;
-      modalIcon.textContent = icons[name] || '🔧';
-      modalOpenLink.href = url;
-
-      modalFrame.classList.add('hidden');
-      modalLoading.style.display = 'flex';
-      modal.classList.add('open');
-      document.body.style.overflow = 'hidden';
-
-      // Load iframe after small delay
-      setTimeout(() => {
-        modalFrame.src = url;
-        modalFrame.onload = () => {
-          modalLoading.style.display = 'none';
-          modalFrame.classList.remove('hidden');
-        };
-        // Fallback if iframe blocked (X-Frame-Options)
-        setTimeout(() => {
-          if (modalFrame.classList.contains('hidden')) {
-            modalLoading.innerHTML = `
-              <div style="text-align:center;padding:2rem;max-width:420px;">
-                <div style="font-size:2.5rem;margin-bottom:1rem;">🔒</div>
-                <div style="font-weight:600;margin-bottom:0.5rem;color:var(--text);">Opens in new tab</div>
-                <div style="color:var(--muted);font-size:13px;margin-bottom:1.5rem;">This tool prevents embedding for security. Click below to open it directly.</div>
-                <a href="${url}" target="_blank" style="display:inline-flex;align-items:center;gap:8px;background:var(--teal-dim);border:1px solid var(--border-hi);color:var(--teal);padding:10px 20px;border-radius:8px;text-decoration:none;font-weight:600;font-size:14px;">↗ Open ${name}</a>
-              </div>`;
-          }
-        }, 4000);
-      }, 100);
     });
-  });
-
-  function closeModal() {
-    modal.classList.remove('open');
-    document.body.style.overflow = '';
-    setTimeout(() => {
-      modalFrame.src = '';
-      modalFrame.classList.add('hidden');
-      modalLoading.style.display = 'flex';
-      modalLoading.innerHTML = `<div class="spinner"></div><span style="color:var(--muted);font-size:13px;">Loading tool…</span>`;
-    }, 300);
   }
+}
+vg.addEventListener('click',()=>setView(false));
+vl.addEventListener('click',()=>setView(true));
 
-  modalCloseBtn.addEventListener('click', closeModal);
-  modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+function openModal(card){
+  const name=card.dataset.name,url=card.dataset.url;
+  if(GH.includes(name)){window.open(url,'_blank');return}
+  mIco.textContent=ICONS[name]||'🔧';
+  mName.textContent=name;mUrlbar.textContent=url;mLink.href=url;
+  mFrame.classList.remove('show');mFrame.src='';
+  mLoading.style.display='flex';
+  mLoading.innerHTML='<div class="spinner"></div><span style="color:var(--tx2);font-size:13px">Loading tool…</span>';
+  overlay.classList.add('open');document.body.style.overflow='hidden';
+  clearTimeout(ft);
+  setTimeout(()=>{
+    mFrame.src=url;
+    mFrame.onload=()=>{mLoading.style.display='none';mFrame.classList.add('show')};
+    ft=setTimeout(()=>{
+      if(!mFrame.classList.contains('show'))
+        mLoading.innerHTML=`<div style="text-align:center;padding:2rem;max-width:380px">
+          <div style="font-size:2.5rem;margin-bottom:1rem">🔒</div>
+          <div style="font-family:var(--fh);font-weight:600;margin-bottom:.5rem;color:var(--tx)">${name}</div>
+          <div style="color:var(--tx2);font-size:13px;margin-bottom:1.5rem;line-height:1.6">This tool restricts embedding for security.<br/>Open it directly in a new tab.</div>
+          <a href="${url}" target="_blank" style="display:inline-flex;align-items:center;gap:8px;background:var(--c12);border:1px solid var(--c40);color:var(--c);padding:10px 20px;border-radius:8px;text-decoration:none;font-weight:600;font-size:14px">↗ Open ${name}</a>
+        </div>`;
+    },4000);
+  },80);
+}
+function closeModal(){
+  overlay.classList.remove('open');document.body.style.overflow='';clearTimeout(ft);
+  setTimeout(()=>{mFrame.src='';mFrame.classList.remove('show');mLoading.style.display='flex';mLoading.innerHTML='<div class="spinner"></div><span style="color:var(--tx2);font-size:13px">Loading tool…</span>'},250);
+}
+cards.forEach(c=>c.addEventListener('click',()=>openModal(c)));
+mClose.addEventListener('click',closeModal);
+overlay.addEventListener('click',e=>{if(e.target===overlay)closeModal()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
+
+/* scroll reveal */
+const ro=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')}),{threshold:.06});
+document.querySelectorAll('.sec').forEach(el=>ro.observe(el));
+
+applyFilters();
 </script>
 </body>
 </html>
